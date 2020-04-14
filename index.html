@@ -253,7 +253,7 @@
                         "translate(" + margin.left + "," + margin.top + ")");
 
                 //Read the data
-                d3v4.csv("us_states_covid19_daily.csv",
+                d3v4.csv("us_covid19_daily.csv",
                     function(d){
                         return { date : d3v4.timeParse("%m/%d/%Y")(d.date), State: d.State, positive: d.positive }
                     },
