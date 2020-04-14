@@ -133,11 +133,13 @@
                         <td>
                             <!-- Create a div where the map will take place -->
                             <div id="my_dataviz" align="center"></div>
+                            <div class = "legend" style="margin: 0 0 0 1000px" id="legend1"></div>
                         </td>
                     </tr>
                 </table>
             </section>
             <section class="c">
+
                 <p class="note" align="Center">
                     The map coloring shows the number of test results done. <br>
                     Hovering over the states shows details on COVID-19 results
@@ -237,6 +239,75 @@
                 </p>
             </section>
 
+
+            <script type="text/javascript">
+                var w = 300, h = 50;
+
+                var key = d3.select("#legend1")
+                    .append("svg")
+                    .attr("width", w)
+                    .attr("height", h);
+
+                var legend = key.append("defs")
+                    .append("svg:linearGradient")
+                    .attr("id", "gradient")
+                    .attr("x1", "0%")
+                    .attr("y1", "100%")
+                    .attr("x2", "100%")
+                    .attr("y2", "100%")
+                    .attr("spreadMethod", "pad");
+
+                legend.append("stop")
+                    .attr("offset", "0%")
+                    .attr("stop-color", "#FFE5E5")
+                    .attr("stop-opacity", 1);
+
+                legend.append("stop")
+                    .attr("offset", "20%")
+                    .attr("stop-color", "#FFCCCC")
+                    .attr("stop-opacity", 1);
+
+                legend.append("stop")
+                    .attr("offset", "40%")
+                    .attr("stop-color", "#FFB2B2")
+                    .attr("stop-opacity", 1);
+
+                legend.append("stop")
+                    .attr("offset", "60%")
+                    .attr("stop-color", "#FF9999")
+                    .attr("stop-opacity", 1);
+
+                legend.append("stop")
+                    .attr("offset", "100%")
+                    .attr("stop-color", "#FF7F7F")
+                    .attr("stop-opacity", 1);
+
+
+                key.append("rect")
+                    .attr("width", w)
+                    .attr("height", h - 30)
+                    .style("fill", "url(#gradient)")
+                    .attr("transform", "translate(0,10)");
+
+                var y = d3.scaleLinear()
+                    .range([300, 0])
+                    .domain([370000, 0]);
+
+                var yAxis = d3.axisBottom()
+                    .scale(y)
+                    .ticks(3);
+
+                key.append("g")
+                    .attr("class", "y axis")
+                    .attr("transform", "translate(0,30)")
+                    .call(yAxis)
+                    .append("text")
+                    .attr("transform", "rotate(-90)")
+                    .attr("y", 0)
+                    .attr("dy", ".71em")
+                    .style("text-anchor", "end")
+                    .text("axis title");
+            </script>
             <script>
                 // set the dimensions and margins of the graph
                 var margin = {top: 10, right: 30, bottom: 30, left: 60},
